@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/lbl1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_layout_narration"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/lbl_amount"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btn_pay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_hollow"
+        android:text="@string/bu_send"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@id/balance"
+        android:text="@string/default_label"
+        android:textSize="30sp"
+        app:fontFamily="@font/museo" />
+
+    <TextView
+        android:id="@+id/balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/label"
+        android:layout_alignBottom="@id/label"
+        android:layout_alignParentRight="true"
+        android:text="@string/default_val"
+        android:textSize="30sp"
+        app:fontFamily="@font/museo" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/balance"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:text="@string/default_addr"
+        app:fontFamily="@font/museo" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/address"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/int_white" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_narration"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@id/input_layout_payto">
+
+        <EditText
+            android:id="@+id/input_narration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lbl_narration"
+            android:inputType="text"
+            android:maxLength="24" />
+    </android.support.design.widget.TextInputLayout>
+
+    <com.xemplarsoft.dv.views.DecimalPicker
+        android:id="@+id/amount"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/lbl1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/btn_hollow"
+        android:padding="3dp"
+        android:textSize="16sp">
+
+    </com.xemplarsoft.dv.views.DecimalPicker>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_payto"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_below="@id/divider"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/scanqr">
+
+        <EditText
+            android:id="@+id/pay_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lbl_pay_to"
+            android:maxLength="34"
+            android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/scanqr"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_below="@id/divider"
+        android:layout_alignTop="@id/input_layout_payto"
+        android:layout_alignBottom="@id/input_layout_payto"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/btn_qr" />
+</RelativeLayout>

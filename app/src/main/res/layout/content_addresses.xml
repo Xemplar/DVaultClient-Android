@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <Button
+        android:id="@+id/remotekey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/divider2"
+        android:background="@drawable/btn_hollow"
+        android:text="New Remote Key" />
+
+    <Button
+        android:id="@+id/localkey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@id/divider2"
+        android:background="@drawable/btn_hollow"
+        android:enabled="false"
+        android:text="New Local Key"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/addresses"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/remotekey"
+        android:layout_below="@id/divider"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/lbl_wallettotal"
+        android:textColor="@color/ui_white"
+        android:textSize="18sp"
+        app:fontFamily="@font/museo" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:text="@string/default_val"
+        android:textColor="@color/ui_white"
+        android:textSize="36sp"
+        app:fontFamily="@font/museo" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/usd"
+        android:background="@color/int_white" />
+
+    <TextView
+        android:id="@+id/usd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:text="@string/default_usd"
+        android:textColor="@color/ui_white"
+        android:textSize="36sp"
+        android:visibility="gone"
+        app:fontFamily="@font/museo"
+        tools:visibility="gone" />
+
+    <TextView
+        android:id="@+id/btc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/total"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:text="@string/default_btc"
+        android:textColor="@color/ui_white"
+        android:textSize="36sp"
+        android:visibility="gone"
+        app:fontFamily="@font/museo"
+        tools:visibility="gone" />
+</RelativeLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/dialog_white"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/dr_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider2"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="@string/mi_rename"
+        android:inputType="textPersonName"
+        android:textColor="@color/ui_black"
+        android:textColorLink="@color/ui_black" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dr_name"
+        android:layout_alignLeft="@id/dr_name"
+        android:layout_alignRight="@id/dr_name"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dr_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginRight="2.5dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_hollow_black"
+            android:text="@string/bu_confirm"
+            android:textColor="@color/ui_black" />
+
+        <Button
+            android:id="@+id/dr_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="2.5dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_hollow_black"
+            android:text="@string/bu_cancel"
+            android:textColor="@color/ui_black" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dr_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/transparent"
+        android:text="@string/mi_rename"
+        android:textColor="@color/ui_black"
+        android:textSize="24sp" />
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="1dp"
+        android:layout_height="10dp"
+        android:layout_centerInParent="true" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="200dp"
+        android:layout_height="1dp"
+        android:layout_below="@id/dr_title"
+        android:layout_centerHorizontal="true"
+        android:background="@color/ui_black" />
+
+</RelativeLayout>

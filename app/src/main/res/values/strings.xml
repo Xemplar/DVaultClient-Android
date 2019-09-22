@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name" translatable="false">D-Vault</string>
+    <string name="vault" translatable="false">Vault</string>
+
+    <string name="denarius" translatable="false">Denarius</string>
+    <string name="default_val" translatable="false">0.0 D</string>
+    <string name="default_usd" translatable="false">$0.00</string>
+    <string name="default_btc" translatable="false">0.0 \u20BF</string>
+    <string name="default_addr" translatable="false">DBY1BZawkKT5CJkt6LBkANQ56bu5VUo8eY</string>
+    <string name="default_label" translatable="false">Jaxon</string>
+
+    <string name="no_addresses">You don\'t have any addresses yet. Tap New Remote Key to get one!</string>
+    <string name="no_transactions">No transactions yet. Get someone to give you some D!</string>
+
+    <string name="tx_copied">Transaction copied to clipboard!</string>
+    <string name="addr_copied">Address copied to clipboard!</string>
+
+    <string name="mi_rename">Rename</string>
+
+    <string name="lbl_transactions">Transactions: </string>
+    <string name="lbl_wallettotal">Wallet Total: </string>
+    <string name="lbl_pay_to">Pay To Address</string>
+    <string name="lbl_narration">Narration</string>
+    <string name="lbl_amount">Amount</string>
+
+    <string name="bu_confirm">Confirm</string>
+    <string name="bu_cancel">Cancel</string>
+    <string name="bu_showqr">Show QR Code</string>
+    <string name="bu_copyaddr">Copy Address</string>
+    <string name="bu_send">Send</string>
+
+    <string name="screen_addresses">Addresses</string>
+    <string name="screen_balance">Balance</string>
+    <string name="screen_stake">Staking</string>
+    <string name="screen_pay">Pay</string>
+
+    <string name="perm_camera">Camera Permission Denied</string>
+</resources>

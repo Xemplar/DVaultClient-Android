@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme.TO" parent="AppTheme">
+
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/ui_black</item>
+        <item name="colorPrimaryDark">@color/ui_black</item>
+        <item name="android:colorBackground">@color/ui_black</item>
+        <item name="android:colorForeground">@color/ui_white</item>
+        <item name="android:textColorPrimary">@color/ui_white</item>
+        <item name="android:textColorPrimaryInverse">@color/ui_gray</item>
+        <item name="android:textColorHint">@color/ui_gray</item>
+        <item name="android:textColorSecondary">@color/ui_gray</item>
+        <item name="android:textColor">@color/ui_white</item>
+        <item name="colorAccent">@color/int_white</item>
+        <item name="android:dialogTheme">@style/Dialog</item>
+        <item name="android:alertDialogTheme">@style/Dialog</item>
+    </style>
+    <style name="Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/int_white</item>
+        <item name="android:background">@color/ui_black</item>
+        <item name="android:textColorPrimary">@color/ui_white</item>
+        <item name="android:textColorPrimaryInverse">@color/ui_gray</item>
+    </style>
+
+</resources>
