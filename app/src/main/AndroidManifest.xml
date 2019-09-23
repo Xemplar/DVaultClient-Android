@@ -18,6 +18,9 @@
         android:theme="@style/AppTheme">
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <activity android:name="com.xemplarsoft.dv.MainActivity">
+
+        </activity>
+        <activity android:name="com.xemplarsoft.dv.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

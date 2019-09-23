@@ -40,7 +40,7 @@ import static com.xemplarsoft.libs.crypto.KeySet.adjustTo64;
 
 @SuppressLint("SetTextI18n")
 public class MainActivity extends AppCompatActivity implements DVClientListener, AddressClickListener {
-    public static AddressManager addressManager = new AddressManager();
+    public static AddressManager addressManager = AddressManager.getInstance();
     public static BigDecimal usd = new BigDecimal("0.0");
     public static BigDecimal btc = new BigDecimal("0.0");
 
@@ -70,11 +70,11 @@ public class MainActivity extends AppCompatActivity implements DVClientListener,
 
         bh = findViewById(R.id.blockheight);
 
-        cli = new DVClient(this);
-        cli.start();
+        cli = StartActivity.client;
+        cli.replaceListener(this);
     }
 
-    public void dwEventHappened(String data) {
+    public void dvEventHappened(String data) {
         String[] tad = data.split(" ");
         boolean updateUI = false;
         switch (tad[0]){
@@ -303,7 +303,6 @@ public class MainActivity extends AppCompatActivity implements DVClientListener,
             }
         }
     }
-
     public void updateBalanceFragment(){
         if(fragBalance.isVisible()) {
             String addr = fragBalance.getAddress();
@@ -475,6 +474,7 @@ public class MainActivity extends AppCompatActivity implements DVClientListener,
         super.onStart();
         try {
             String internal = getFilesDir().getAbsolutePath();
+            this.db = StartActivity.db;
             if(db == null) db = new DBWrapper(internal, LevelDB.configure().createIfMissing(true));
 
             String usd_s = db.getString("USD");
@@ -486,25 +486,11 @@ public class MainActivity extends AppCompatActivity implements DVClientListener,
                 btc = new BigDecimal(btc_s);
             }
 
-            String raw = db.getString(Vars.KEY_ADDRESSES);
-            if(raw != null) {
-                String[] read = raw.split(":");
-                for (String s : read) {
-                    String[] dat = db.getString(s).split(":");
-                    if (dat.length > 2) {
-                        String[] txs = dat[2].split(" ");
-                        addressManager.addAddress(new Address(s, dat[0], new BigDecimal(dat[1]), txs));
-                    } else {
-                        addressManager.addAddress(new Address(s, dat[0], new BigDecimal(dat[1])));
-                    }
-                }
-            }
             update();
         } catch (Exception e){
             e.printStackTrace();
         }
 
-        cli.getAddresses();
         cli.getBlockHeight();
         cli.getMarketUSD();
         cli.getMarketBTC();

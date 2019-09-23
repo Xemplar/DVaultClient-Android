@@ -1,7 +1,6 @@
 package com.xemplarsoft.dv.medium;
 
 import com.xemplarsoft.Vars;
-import com.xemplarsoft.dv.MainActivity;
 import com.xemplarsoft.libs.crypto.server.domain.Entity;
 import com.xemplarsoft.libs.crypto.server.domain.UTXOverview;
 
@@ -25,6 +24,9 @@ import static com.xemplarsoft.Vars.deserialize;
 import static com.xemplarsoft.Vars.serialize;
 
 public class DVClient implements Runnable{
+    private static final int CONNECT_REGISTER = 0x03;
+    private static final int CONNECT_LOGIN = 0x01;
+
     private static String pubkey = Vars.pubkey;
     protected volatile PublicKey async;
     protected volatile SecretKey sync;
@@ -39,6 +41,8 @@ public class DVClient implements Runnable{
     protected volatile DVClientListener listener;
     protected volatile String action;
 
+    protected volatile int connectType;
+
     private Queue<String> data = new ArrayBlockingQueue<>(20);
 
     protected long millsAWK;
@@ -50,10 +54,10 @@ public class DVClient implements Runnable{
         t = new Thread(this);
         t2 = new Thread(this.actionListener);
         t3 = new Thread(this.reconnect);
+    }
 
-        byte[] decoded = android.util.Base64.decode("jsHjwrDrUnMlG6y+5qdsqVzntp+trHOPF5GXLui+5f0=", android.util.Base64.DEFAULT);
-        DVClient.this.sync = new SecretKeySpec(decoded, 0, decoded.length, "AES");
-        DVClient.this.UID = 5375409349650691407L;
+    public void replaceListener(DVClientListener l){
+        this.listener = l;
     }
 
     public synchronized boolean isConnected(){
@@ -159,11 +163,26 @@ public class DVClient implements Runnable{
     }
 
     // Network Methods
+    public void registerOnNetwork(){
+        connectType = CONNECT_REGISTER;
+    }
+
+    public void loginToNetwork(String aes, long uid){
+        try {
+            byte[] decoded = Base64.decode(aes);
+            this.sync = new SecretKeySpec(decoded, 0, decoded.length, "AES");
+            this.UID = uid;
+            connectType = CONNECT_LOGIN;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void registerOnNetwork(int step, String response){
         if(step == 0){
             System.out.println("INFO: Attempting to register on network.");
             chall = CryptoHandler.generateRandomString(20);
-            listener.dwEventHappened("register attempt " + chall);
+            listener.dvEventHappened("register attempt " + chall);
             String message = "loadmii:";
             sync = CryptoHandler.generateAES();
             String syncDat = "";
@@ -179,11 +198,11 @@ public class DVClient implements Runnable{
                 String dat = CryptoHandler.decryptMessage(response, sync);
                 if(dat.equals("chall" + chall)){
                     System.out.println("REGISTER: Challenge Correct");
-                    listener.dwEventHappened("register correct");
+                    listener.dvEventHappened("register correct");
                     write(CryptoHandler.encryptMessage("finishmii", sync));
                 } else {
                     System.out.println("REGISTER: Challenge Incorrect");
-                    listener.dwEventHappened("register failed");
+                    listener.dvEventHappened("register failed");
                     registerOnNetwork(0, "");
                 }
             } catch (Exception e){
@@ -196,7 +215,8 @@ public class DVClient implements Runnable{
                     UID = Long.parseLong(dat.split(":")[1]);
                     isReady = true;
                     System.out.println("REGISTER: UID " + UID + " Received");
-                    listener.dwEventHappened("register finished " + UID);
+                    listener.dvEventHappened("register finished " + UID);
+                    connectType = CONNECT_LOGIN;
                 } else {
                     System.out.println("INFO: Server Error -1");
                     registerOnNetwork(0, "");
@@ -228,7 +248,7 @@ public class DVClient implements Runnable{
     public void loginToNetwork(int step, String response){
         if(step == 0){
             System.out.println("INFO: Attempting to login to network.");
-            listener.dwEventHappened("login attempt");
+            listener.dvEventHappened("login attempt");
             try {
                 write("logmiiin:" + UID);
             } catch (Exception e){
@@ -239,7 +259,7 @@ public class DVClient implements Runnable{
                 String[] dat = response.split(":");
                 String random = CryptoHandler.decryptMessage(dat[1], sync);
                 System.out.println("INFO: challenge " + random + " received");
-                listener.dwEventHappened("login chall" + random);
+                listener.dvEventHappened("login chall" + random);
                 String modnar = "";
                 for(int i = random.length() - 1; i >= 0; i--) {
                     modnar = modnar + random.charAt(i);
@@ -256,11 +276,11 @@ public class DVClient implements Runnable{
                     if(UID == Long.parseLong(dat.split(":")[1])){
                         isReady = true;
                         System.out.println("INFO: Successfully logged in");
-                        listener.dwEventHappened("login successful " + UID);
+                        listener.dvEventHappened("login successful " + UID);
                     } else {
                         write("loginerr");
                         System.out.println("INFO: Error logging in");
-                        listener.dwEventHappened("login failed");
+                        listener.dvEventHappened("login failed");
                     }
                 } else {
                     loginToNetwork(0, "");
@@ -271,6 +291,13 @@ public class DVClient implements Runnable{
         }
     }
 
+    public String getAES(){
+        return Base64.encode(sync.getEncoded());
+    }
+
+    public long getUID(){
+        return UID;
+    }
 
     public boolean isReady() {
         return isReady;
@@ -306,12 +333,12 @@ public class DVClient implements Runnable{
                 String data = new String(Base64.decode(dat[1]));
                 Entity info = (Entity) deserialize(data, c);
                 System.out.println(serialize(info, true));
-                listener.dwEventHappened("data " + dat[0] + " " + dat[1]);
+                listener.dvEventHappened("data " + dat[0] + " " + dat[1]);
             } catch (Exception e){
                 e.printStackTrace();
             }
         } else if(tad.length > 1){
-            listener.dwEventHappened(command);
+            listener.dvEventHappened(command);
         }
     }
     public void run() {
@@ -405,7 +432,14 @@ public class DVClient implements Runnable{
                             }
                         }
 
-                        loginToNetwork(0, "");
+                        switch (connectType){
+                            case CONNECT_REGISTER:
+                                registerOnNetwork(0, "");
+                                break;
+                            case CONNECT_LOGIN:
+                                loginToNetwork(0, "");
+                                break;
+                        }
                     }
                 }
                 try{

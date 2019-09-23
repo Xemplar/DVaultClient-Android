@@ -35,4 +35,17 @@
     <string name="screen_pay">Pay</string>
 
     <string name="perm_camera">Camera Permission Denied</string>
+
+    <string name="start_register_0">Attempting to register on server.</string>
+    <string name="start_register_1">Attempting to register on server.</string>
+
+    <string name="start_login_0">Attempting Login</string>
+    <string name="start_login_1">Solving Challenge</string>
+    <string name="start_login_2">Login Successful, Updating Addresses</string>
+
+    <string name="start_init_0">Addresses Updated, Grabbing Address Data</string>
+    <string name="start_init_1">Address Data Updated, Starting D-Vault</string>
+
+    <string name="start_register">Register for Account</string>
+    <string name="start_default">Click Below to Register</string>
 </resources>

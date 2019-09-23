@@ -8,9 +8,13 @@ import java.util.List;
 import java.util.Set;
 
 public class AddressManager {
+    private static final AddressManager manager = new AddressManager();
     private ArrayList<Address> addresses = new ArrayList<>();
 
-    public AddressManager(){}
+    public static AddressManager getInstance(){
+        return manager;
+    }
+    private AddressManager(){}
 
     public boolean hasAddress(String address){
         for(Address a : addresses){
